@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------
 -- |
 -- Module      : Hpc
--- Description : Rets Hpc Code Coverage
--- Copyright   : (c) 2014 Christopher Reichert
--- License     : AllRightsReserved
--- Maintainer  : Christopher Reichert <creichert@reichertbrothers.com>
+-- Description : Hpc Code Coverage
+-- Copyright   : (c) 2015 Christopher Reichert
+-- License     : BSD3
+-- Maintainer  : Christopher Reichert <creichert07@gmail.com>
 -- Stability   : unstable
--- Portability : GNU/Linux, FreeBSD
+-- Portability : POSIX
 --
 
 
@@ -25,9 +25,8 @@ average :: (Fractional a, Real b) => [b] -> a
 average xs = realToFrac (sum xs) / genericLength xs
 
 
-expected :: Fractional a => a
--- expected = 90
-expected = 10
+expected :: Double
+expected = 90.0
 
 
 
@@ -43,9 +42,6 @@ main = do
   createDirectoryIfMissing True "dist/doc/html/hpc/mix/spec/"
   output <- readProcess "hpc" [ "report"
                               , "--per-module"
-                                -- Hpc seems to have trouble with multiple Main
-                                -- target in the cabal file
-                                -- , "dist/hpc/tix/rets-0.1.0.0/rets-0.1.0.0.tix"
                               , "--hpcdir", "dist/hpc/vanilla/mix/spec/"
                               , "dist/hpc/vanilla/tix/spec/spec.tix"
                               ] ""
