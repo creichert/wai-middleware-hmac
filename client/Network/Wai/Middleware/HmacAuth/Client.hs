@@ -194,9 +194,6 @@ buildMessage verb contentmd5 ctype date resource =
 -- | Canonicalization of the request uri
 --
 -- http-request uri from the protocol name up to the query string.
+-- TODO add the query string to the canonicalized resource?
 canonicalizedResource :: Request -> ByteString
-canonicalizedResource req =
-    let uri = path req
-              -- <> queryString req
-              -- TODO add the query string to the canonicalized resource?
-    in BS.concat [ uri ]
+canonicalizedResource = path

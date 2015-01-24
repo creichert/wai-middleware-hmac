@@ -376,6 +376,4 @@ buildMessage verb contentmd5 ctype date resource =
 --
 -- http-request uri from the protocol name up to the query string.
 canonicalizedResource :: Request -> ByteString
-canonicalizedResource req =
-    let uri = rawPathInfo req
-    in BS.concat [ uri ]
+canonicalizedResource = rawPathInfo
