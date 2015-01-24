@@ -24,8 +24,8 @@ section for more details
 ** Client
 
    A client module resides in client/. The client is built on http-client
-   and has one primary function, `applyHmacAuth`, which is similar to
-   http-client's `applyBasicAuth`. There are redundancies between the
+   and has one primary function, *applyHmacAuth*, which is similar to
+   http-client's *applyBasicAuth*. There are redundancies between the
    middleware and client in order to keep a minimum dependency profile on
    both components.
 
@@ -92,6 +92,7 @@ section for more details
 
 
 ** Wishlist
+   - [ ] Streaming (http-conduit) support in client
    - [ ] Read server and client settings from config file or env
    - [ ] Query parameter configuration
    - [ ] Signing algorithm negotiation
