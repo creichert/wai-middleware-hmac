@@ -52,7 +52,7 @@ spec = describe "Network.Wai.Middleware.HmacAuth" $ do
 -- This app has preloaded api keys to simulate
 -- some database or service which can access the
 -- private keys.
-hmacAuthApp :: HmacAuthSettings alg -> Application
+hmacAuthApp :: HashAlgorithm alg => HmacAuthSettings alg -> Application
 hmacAuthApp stgs = hmacAuth lookupSecret stgs
                        $ \_ f -> f response
   where

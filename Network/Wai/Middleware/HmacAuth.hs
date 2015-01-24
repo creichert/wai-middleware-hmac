@@ -9,8 +9,10 @@
 -- Portability : POSIX
 --
 
-{-# LANGUAGE OverloadedStrings          #-}
-{-# LANGUAGE RecordWildCards            #-}
+{-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE RankNTypes          #-}
+{-# LANGUAGE RecordWildCards     #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 
 module Network.Wai.Middleware.HmacAuth (
@@ -22,6 +24,7 @@ module Network.Wai.Middleware.HmacAuth (
     , signRequest
 
       -- ** Supported Hashing Algorithms
+    , HashAlgorithm
     , SHA512, SHA256, SHA1, MD5
 
       -- * Hmac and Middleware Configuration
@@ -163,7 +166,9 @@ type LookupSecret m = Key -> m (Maybe Secret)
 -- >      authware = hmacAuth lookupSecret defaultHmacAuth
 -- > Warp.run (read port) $ authware $ app
 --
-hmacAuth :: LookupSecret IO
+hmacAuth :: forall alg .
+            HashAlgorithm alg
+            => LookupSecret IO
             -> HmacAuthSettings alg
             -> Application
             -> Request
@@ -297,7 +302,10 @@ getBase64DecodedSignature HmacAuthSettings{..} realm headers =
 --
 -- TODO hash contents throught MonadState using a type to make
 -- sure all the components are there or err.
-signRequest :: MonadIO m
+signRequest :: forall m alg .
+               (
+                  MonadIO m
+                , HashAlgorithm alg )
                => HmacAuthSettings alg
                -> Secret
                -> Request
@@ -309,7 +317,7 @@ signRequest cfg@HmacAuthSettings{..} (Secret secret) req = do
     let contentmd5    = MD5.hash body
         res           = canonicalizedResource req
         payload       = buildMessage verb contentmd5 ctype date res
-        HMAC hashed   = hmac secret payload :: HMAC SHA512
+        HMAC hashed   = hmac secret payload :: HMAC alg
         digest        = BS64.encode (toBytes hashed)
 
     return $ req { requestHeaders =
