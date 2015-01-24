@@ -9,7 +9,6 @@
 -- Portability : POSIX
 --
 
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE RecordWildCards            #-}
 
@@ -95,12 +94,14 @@ data HmacAuthSettings alg = HmacAuthSettings
 
 
 -- | HMAC Public Key
-newtype Key = Key { unKey :: ByteString } deriving (Eq, Show)
+newtype Key = Key ByteString
+              deriving (Eq, Show)
 
 
 
 -- | HMAC Secret Key
-newtype Secret = Secret ByteString deriving (Eq, Show)
+newtype Secret = Secret ByteString
+                 deriving (Eq, Show)
 
 
 
@@ -118,12 +119,18 @@ data HmacStrategy = Header
 
 
 -- | Possibilities for Error during an Hmac Authentication Session
-data HmacAuthException =
-                         NoSecret
-                       | NoAuthHeader
-                       | InvalidSignature
-                       | SignatureMismatch
-                         deriving Show
+data HmacAuthException
+    = NoSecret
+      -- ^ No secret could be found for the key
+      -- in the request
+    | NoAuthHeader
+      -- ^ No specified Auth header found
+    | InvalidSignature
+      -- ^ Signature could not be decoded properly
+    | SignatureMismatch
+      -- ^ Valid signature which does not match
+      -- server generated sig
+    deriving Show
 
 
 
