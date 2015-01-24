@@ -18,7 +18,7 @@ This HMAC Authentication implementation is based on the HMAC
 Authentication scheme outlined by Amazon AWS. See the [[#Specification][Specification]]
 section for more details
 
-/These packages are still experimental/
+_These packages are still experimental_
 
 
 ** Client
