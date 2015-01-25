@@ -12,8 +12,8 @@
 
 
 {-# LANGUAGE OverloadedStrings   #-}
-{-# LANGUAGE RecordWildCards     #-}
 {-# LANGUAGE RankNTypes          #-}
+{-# LANGUAGE RecordWildCards     #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 
@@ -45,6 +45,7 @@ import qualified Data.ByteString.Char8  as BS
 import qualified Data.ByteString.Lazy   as B
 import           Data.CaseInsensitive   (CI)
 import           Data.Maybe             (fromMaybe)
+import           Data.Monoid            ((<>))
 import           Data.Time
 import           Network.HTTP.Client
 import qualified Network.HTTP.Types     as Http
@@ -116,7 +117,7 @@ applyHmacAuth :: forall m alg .
                  -> Secret
                  -> Request
                  -> m Request
-applyHmacAuth settings key secret req = do
+applyHmacAuth cfg@HmacAuthSettings{..} key secret req = do
 
     now <- liftIO getCurrentTime
 
@@ -128,10 +129,10 @@ applyHmacAuth settings key secret req = do
         digest              = BS64.encode (toBytes hashed)
 
     return $ req { requestHeaders =
-                      [ ("X-auth-timestamp", date)
-                      , ("X-auth-apikey",key)
-                      , authHeader settings key digest
-                      ] ++ requestHeaders req
+                      [ (authTimestampHeader, date)
+                      , (authKeyHeader, key)
+                      , authHeader cfg key digest
+                      ] <> requestHeaders req
                  }
   where
     signPayload :: Secret -> ByteString -> HMAC alg
