@@ -8,9 +8,8 @@
 
 [[https://travis-ci.org/creichert/wai-middleware-hmac][https://travis-ci.org/creichert/wai-middleware-hmac.svg?branch=master]]
 [[https://github.com/creichert/wai-middleware-hmac/blob/master/LICENSE][https://img.shields.io/badge/license-BSD3-green.svg?dummy]]
-
-
 [[https://hackage.haskell.org/package/wai-middleware-hmac][https://img.shields.io/hackage/v/wai-middleware-hmac.svg?dummy]]
+
 
 HMAC Authentication Middleware for WAI with supporting client
 module. Supports SHA512, SHA256, SHA1, and MD5 request signatures.
