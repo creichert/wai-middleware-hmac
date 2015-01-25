@@ -57,17 +57,16 @@ import           Network.Wai
 -- | Various settings for HMAC authentication
 data HmacAuthSettings alg = HmacAuthSettings
     {
-      -- | We can leave these empty and use the data
-      -- alread in the headers
+      -- | Name of the header which carries the auth key
       authKeyHeader       :: !(CI ByteString)
 
       -- | Name of the HTTP Header which carries the timestamp
     , authTimestampHeader :: !(CI ByteString)
 
-      -- | Is the route protected?
+      -- | Determines whether the request needs authentication
     , authIsProtected     :: !(Request -> IO Bool)
 
-      -- | On no auth sign a message for the client
+      -- | Function to run when authentication is unsuccessful
     , authOnNoAuth        :: !(HmacAuthException -> Application)
 
       -- | HMAC signing algorithm
@@ -76,21 +75,15 @@ data HmacAuthSettings alg = HmacAuthSettings
     , authAlgorithm       :: alg
 
       -- | Realm provider.
-      --
-      -- Used to identify unique headers.
-      --
-      -- e.g. Authorization: API key:signature
     , authRealm           :: !ByteString
 
-      -- | Use Header or GetParam spec.
+      -- | Use Header or Query spec.
       --
-      -- GetParam is useful for sharing encoded URLs
+      -- Query spec is useful for sharing encoded URLs
       --
-      -- TODO can it be both? e.g. list of supported
-      --  strategies
     , authSpec            :: !HmacStrategy
 
-      -- | Print debug output when signing Requests
+      -- | Print debug output
     , authDebug           :: !Bool
     }
 
