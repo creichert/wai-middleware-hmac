@@ -10,6 +10,8 @@
 [[https://github.com/creichert/wai-middleware-hmac/blob/master/LICENSE][https://img.shields.io/badge/license-BSD3-green.svg?dummy]]
 
 
+[[https://hackage.haskell.org/package/wai-middleware-hmac][https://img.shields.io/hackage/v/wai-middleware-hmac.svg?dummy]]
+
 HMAC Authentication Middleware for WAI with supporting client
 module. Supports SHA512, SHA256, SHA1, and MD5 request signatures.
 
@@ -22,6 +24,8 @@ _These packages are still experimental_
 
 
 ** Client
+
+   [[https://hackage.haskell.org/package/wai-middleware-hmac-client][https://img.shields.io/hackage/v/wai-middleware-hmac-client.svg?dummy]]
 
    A client module resides in client/. The client is built on http-client
    and has one primary function, *applyHmacAuth*, which is similar to
