@@ -163,10 +163,7 @@ hmacAuth :: forall alg .
             HashAlgorithm alg
             => LookupSecret IO
             -> HmacAuthSettings alg
-            -> Application
-            -> Request
-            -> (Response -> IO ResponseReceived)
-            -> IO ResponseReceived
+            -> Middleware
 hmacAuth lookupSecret cfg@HmacAuthSettings {..} app req respond = do
 
     isProtected <- authIsProtected req
