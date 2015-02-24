@@ -24,7 +24,7 @@ description:
 
 source-repository head
   type:     git
-  location: git://github.com/creichert/wai-middleware-hmac-client
+  location: git://github.com/creichert/wai-middleware-hmac
 
 
 library
