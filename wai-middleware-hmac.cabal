@@ -21,11 +21,9 @@ description:
   See @wai-middleware-hmac-client@ for ready-to-use client module.
 
 
-
 source-repository head
   type:     git
   location: git://github.com/creichert/wai-middleware-hmac.git
-
 
 
 library
@@ -42,7 +40,9 @@ library
                      , transformers
                      , wai               >= 3.0
                      , word8             >= 0.1
-
+  if impl(ghc < 7.8)
+    build-depends:
+      blaze-builder < 0.4
 
 
 executable example
@@ -57,7 +57,6 @@ executable example
                      , transformers
                      , wai
                      , warp
-
 
 
 test-suite spec
@@ -77,7 +76,6 @@ test-suite spec
                      , HUnit
 
 
-
 test-suite doctest
   default-language:    Haskell2010
   ghc-options:         -Wall -Werror -threaded
@@ -88,7 +86,6 @@ test-suite doctest
                      , Glob    == 0.7.*
 
 
-
 test-suite haddock
   main-is:             test/Haddock.hs
   ghc-options:         -Wall -Werror -threaded
@@ -97,7 +94,6 @@ test-suite haddock
   build-depends:       base
                      , process
                      , regex-compat
-
 
 
 test-suite hlint
