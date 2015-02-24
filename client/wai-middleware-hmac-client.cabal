@@ -12,11 +12,11 @@ cabal-version:       >=1.10
 synopsis:            WAI HMAC Authentication Middleware Client
 description:
   Ready to use client module for
-  <<https://hackage.haskell.org/package/wai-middleware-hmac wai-middleware-hmac>>.
+  <https://hackage.haskell.org/package/wai-middleware-hmac wai-middleware-hmac>.
   .
   Since no formal specification for HMAC authentication exists, this
   module is specifically built for
-  <<https://hackage.haskell.org/package/wai-middleware-hmac wai-middleware-hmac>>.
+  <https://hackage.haskell.org/package/wai-middleware-hmac wai-middleware-hmac>.
    This module is built on @http-client@ but is
   in the @Network.Wai@ namespace since the protocol is mostly specific
   to the middleware.
