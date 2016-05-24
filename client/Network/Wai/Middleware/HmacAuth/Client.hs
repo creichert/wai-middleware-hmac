@@ -49,7 +49,7 @@ import           Data.Monoid            ((<>))
 import           Data.Time
 import           Network.HTTP.Client
 import qualified Network.HTTP.Types     as Http
-import           System.Locale
+import           System.Locale          hiding (defaultTimeLocale)
 
 
 
@@ -169,10 +169,10 @@ authHeader HmacAuthSettings{..} key sig =
 --
 -- @
 -- stringtosign = http-method  + "\n" +
--- 	          content md5  + "\n" +
--- 	          content-type + "\n" +
--- 	          date         + "\n" +
--- 	          canonicalizedUri;
+--                content md5  + "\n" +
+--                content-type + "\n" +
+--                date         + "\n" +
+--                canonicalizedUri;
 -- @
 --
 buildMessage
